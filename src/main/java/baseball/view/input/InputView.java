@@ -16,6 +16,13 @@ public class InputView {
                 .collect(Collectors.toList());
     }
 
+    public int inputGameCommand() {
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        String input = Console.readLine();
+        validateNumber(input);
+        return Integer.parseInt(input);
+    }
+
     private void validateNumber(String input) {
         if (!input.matches("^\\d+$")) {
             throw new IllegalBaseballNumbersException();
