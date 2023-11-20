@@ -3,6 +3,7 @@ package baseball.domain;
 import baseball.exception.IllegalBaseballNumbersException;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class Baseball {
     public static final int SIZE = 3;
@@ -31,5 +32,27 @@ public class Baseball {
             throw new IllegalBaseballNumbersException();
         }
     }
+
+    private int getBall(int index) {
+        return numbers.get(index);
+    }
+
+    private boolean contains(int number) {
+        return numbers.contains(number);
+    }
+
+    public int countBall(Baseball baseball) {
+        return (int) IntStream.range(0, SIZE)
+                .filter(i -> {
+                    int ball = getBall(i);
+                    return baseball.getBall(i) != ball && baseball.contains(ball);
+                })
+                .count();
+    }
+
+    public int countStrike(Baseball baseball) {
+        return (int) IntStream.range(0, SIZE)
+                .filter(i -> baseball.getBall(i) == getBall(i))
+                .count();
     }
 }
